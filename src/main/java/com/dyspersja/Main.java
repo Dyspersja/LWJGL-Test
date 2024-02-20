@@ -1,7 +1,15 @@
 package com.dyspersja;
 
+import org.lwjgl.glfw.GLFW;
+
 public class Main {
     public static void main(String[] args) {
-        System.out.println("Hello world!");
+        DisplayManager displayManager = new DisplayManager("App Title",400,300);
+        displayManager.create();
+
+        while (!GLFW.glfwWindowShouldClose(displayManager.window)) {
+            displayManager.update();
+        }
+        displayManager.destroy();
     }
 }
