@@ -1,10 +1,11 @@
 package com.dyspersja;
 
-import org.lwjgl.glfw.GLFW;
 import org.lwjgl.glfw.GLFWErrorCallback;
 import org.lwjgl.opengl.GL;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.system.MemoryUtil;
+
+import static org.lwjgl.glfw.GLFW.*;
 
 public class DisplayManager {
 
@@ -24,13 +25,13 @@ public class DisplayManager {
     public void create() {
         GLFWErrorCallback.createPrint(System.err).set();
 
-        if (!GLFW.glfwInit()) throw new IllegalStateException("Unable to initialize GLFW");
+        if (!glfwInit()) throw new IllegalStateException("Unable to initialize GLFW");
 
-        GLFW.glfwDefaultWindowHints();
-        GLFW.glfwWindowHint(GLFW.GLFW_VISIBLE, GLFW.GLFW_FALSE);
-        GLFW.glfwWindowHint(GLFW.GLFW_RESIZABLE, GLFW.GLFW_TRUE);
+        glfwDefaultWindowHints();
+        glfwWindowHint(GLFW_VISIBLE, GLFW_FALSE);
+        glfwWindowHint(GLFW_RESIZABLE, GLFW_TRUE);
 
-        window = GLFW.glfwCreateWindow(
+        window = glfwCreateWindow(
                 width,
                 height,
                 title,
@@ -40,27 +41,27 @@ public class DisplayManager {
 
         if (window == MemoryUtil.NULL) throw new RuntimeException("Failed to create the GLFW window");
 
-        GLFW.glfwSetKeyCallback(window, (window, key, scancode, action, mods) -> {
-            if ( key == GLFW.GLFW_KEY_ESCAPE && action == GLFW.GLFW_RELEASE )
-                GLFW.glfwSetWindowShouldClose(window, true);
+        glfwSetKeyCallback(window, (window, key, scancode, action, mods) -> {
+            if ( key == GLFW_KEY_ESCAPE && action == GLFW_RELEASE )
+                glfwSetWindowShouldClose(window, true);
         });
 
-        GLFW.glfwMakeContextCurrent(window);
-        GLFW.glfwShowWindow(window);
+        glfwMakeContextCurrent(window);
+        glfwShowWindow(window);
         GL.createCapabilities();
         GL11.glClearColor(1.0f, 0.0f, 0.0f, 0.0f);
     }
 
     public void update() {
-        GLFW.glfwSwapBuffers(window);
-        GLFW.glfwPollEvents();
+        glfwSwapBuffers(window);
+        glfwPollEvents();
     }
 
     public void destroy() {
-        GLFW.glfwDestroyWindow(window);
+        glfwDestroyWindow(window);
     }
 
     public boolean windowShouldClose() {
-        return GLFW.glfwWindowShouldClose(window);
+        return glfwWindowShouldClose(window);
     }
 }
