@@ -13,7 +13,7 @@ public class DisplayManager {
     private int height;
 
     // The window handle
-    public long window;
+    private long window;
 
     public DisplayManager(String title, int width, int height) {
         this.title = title;
@@ -58,5 +58,9 @@ public class DisplayManager {
 
     public void destroy() {
         GLFW.glfwDestroyWindow(window);
+    }
+
+    public boolean windowShouldClose() {
+        return GLFW.glfwWindowShouldClose(window);
     }
 }
