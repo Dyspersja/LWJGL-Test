@@ -7,7 +7,7 @@ import org.lwjgl.system.MemoryUtil;
 import static org.lwjgl.glfw.Callbacks.glfwFreeCallbacks;
 import static org.lwjgl.glfw.GLFW.*;
 
-public class DisplayManager {
+public class Display {
 
     private String title;
     private int width;
@@ -16,7 +16,7 @@ public class DisplayManager {
     // The window handle
     private long window;
 
-    public DisplayManager(String title, int width, int height) {
+    public Display(String title, int width, int height) {
         this.title = title;
         this.width = width;
         this.height = height;
@@ -64,7 +64,7 @@ public class DisplayManager {
         glfwSetErrorCallback(null).free();
     }
 
-    public boolean windowShouldClose() {
+    public boolean shouldClose() {
         return glfwWindowShouldClose(window);
     }
 }
