@@ -5,6 +5,7 @@ import org.lwjgl.opengl.GL;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.system.MemoryUtil;
 
+import static org.lwjgl.glfw.Callbacks.glfwFreeCallbacks;
 import static org.lwjgl.glfw.GLFW.*;
 
 public class DisplayManager {
@@ -58,7 +59,11 @@ public class DisplayManager {
     }
 
     public void destroy() {
+        glfwFreeCallbacks(window);
         glfwDestroyWindow(window);
+
+        glfwTerminate();
+        glfwSetErrorCallback(null).free();
     }
 
     public boolean windowShouldClose() {
