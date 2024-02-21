@@ -2,7 +2,6 @@ package com.dyspersja;
 
 import org.lwjgl.glfw.GLFWErrorCallback;
 import org.lwjgl.opengl.GL;
-import org.lwjgl.opengl.GL11;
 import org.lwjgl.system.MemoryUtil;
 
 import static org.lwjgl.glfw.Callbacks.glfwFreeCallbacks;
@@ -50,12 +49,9 @@ public class DisplayManager {
         glfwMakeContextCurrent(window);
         glfwShowWindow(window);
         GL.createCapabilities();
-        GL11.glClearColor(1.0f, 0.0f, 0.0f, 0.0f);
     }
 
     public void update() {
-        GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
-
         glfwSwapBuffers(window);
         glfwPollEvents();
     }
