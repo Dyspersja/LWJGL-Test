@@ -12,7 +12,7 @@ public class Engine {
     }
 
     public void start() {
-        window.create();
+        initialize();
         run();
         cleanup();
     }
@@ -39,6 +39,10 @@ public class Engine {
 
             if (render) render();
         }
+    }
+
+    private void initialize() {
+        window.create();
     }
 
     private void stop() {
