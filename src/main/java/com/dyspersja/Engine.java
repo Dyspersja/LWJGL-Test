@@ -3,12 +3,16 @@ package com.dyspersja;
 public class Engine {
 
     private final Display window;
+    private final Loader loader;
+    private final Renderer renderer;
 
     private float targetFPS = 1000;
     private boolean running;
 
-    public Engine(Display window) {
+    public Engine(Display window, Loader loader, Renderer renderer) {
         this.window = window;
+        this.loader = loader;
+        this.renderer = renderer;
     }
 
     public void start() {
@@ -24,6 +28,16 @@ public class Engine {
         long lastTime = System.nanoTime();
         double deltaTime = 0;
 
+        float[] vertices = {
+                -0.5f, 0.5f, 0f,
+                -0.5f, -0.5f, 0f,
+                0.5f, -0.5f, 0f,
+                0.5f, -0.5f, 0f,
+                0.5f, 0.5f, 0f,
+                -0.5f, 0.5f, 0f
+        };
+        Model testModel = loader.loadModel(vertices);
+
         while (running) {
             boolean render = false;
             long currentTime = System.nanoTime();
@@ -37,7 +51,7 @@ public class Engine {
                 if (window.shouldClose()) stop();
             }
 
-            if (render) render();
+            if (render) render(testModel);
         }
     }
 
@@ -50,11 +64,14 @@ public class Engine {
         running = false;
     }
 
-    private void render() {
+    private void render(Model testModel) {
+        renderer.clear();
+        renderer.render(testModel);
         window.update();
     }
 
     private void cleanup() {
+        loader.cleanup();
         window.destroy();
     }
 
