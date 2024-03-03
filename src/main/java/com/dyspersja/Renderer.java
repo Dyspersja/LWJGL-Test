@@ -5,7 +5,7 @@ import static org.lwjgl.opengl.GL30.*;
 public class Renderer {
 
     public void render(Model model) {
-        glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+//        glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
         glBindVertexArray(model.getId());
         glEnableVertexAttribArray(0);
