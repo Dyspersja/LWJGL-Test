@@ -1,15 +1,22 @@
 package com.dyspersja;
 
+import com.dyspersja.shaders.StaticShader;
+
 public class Engine {
 
     private final Display window;
     private final Loader loader;
     private final Renderer renderer;
+    private StaticShader shader;
 
     private float targetFPS = 1000;
     private boolean running;
 
-    public Engine(Display window, Loader loader, Renderer renderer) {
+    public Engine(
+            Display window,
+            Loader loader,
+            Renderer renderer
+    ) {
         this.window = window;
         this.loader = loader;
         this.renderer = renderer;
@@ -60,6 +67,7 @@ public class Engine {
 
     private void initialize() {
         window.create();
+        shader = new StaticShader();
     }
 
     private void stop() {
@@ -69,11 +77,14 @@ public class Engine {
 
     private void render(Model testModel) {
         renderer.clear();
+        shader.start();
         renderer.render(testModel);
+        shader.stop();
         window.update();
     }
 
     private void cleanup() {
+        shader.cleanup();
         loader.cleanup();
         window.destroy();
     }
