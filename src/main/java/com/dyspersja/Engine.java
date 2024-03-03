@@ -32,11 +32,14 @@ public class Engine {
                 -0.5f, 0.5f, 0f,
                 -0.5f, -0.5f, 0f,
                 0.5f, -0.5f, 0f,
-                0.5f, -0.5f, 0f,
-                0.5f, 0.5f, 0f,
-                -0.5f, 0.5f, 0f
+                0.5f, 0.5f, 0f
         };
-        Model testModel = loader.loadModel(vertices);
+
+        int[] indices = {
+                0,1,3,
+                3,1,2
+        };
+        Model testModel = loader.loadModel(vertices, indices);
 
         while (running) {
             boolean render = false;
