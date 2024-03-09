@@ -9,6 +9,8 @@ import static org.lwjgl.glfw.GLFW.*;
 
 public class Display {
 
+    private static Display instance;
+
     private String title;
     private int width;
     private int height;
@@ -16,7 +18,25 @@ public class Display {
     // The window handle
     private long window;
 
-    public Display(String title, int width, int height) {
+    public static Display getInstance() {
+        if (instance == null) {
+            throw new IllegalStateException("Instance of Display class is not initialized");
+        }
+        return instance;
+    }
+
+    public static void initialize(String title, int width, int height) {
+        if (instance != null) {
+            throw new IllegalStateException("Display class has already been initialized");
+        } else {
+            var window = new Display(title, width, height);
+            window.create();
+
+            instance = window;
+        }
+    }
+
+    private Display(String title, int width, int height) {
         this.title = title;
         this.width = width;
         this.height = height;

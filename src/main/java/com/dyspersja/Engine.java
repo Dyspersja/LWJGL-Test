@@ -7,19 +7,20 @@ public class Engine {
     private final Display window;
     private final Loader loader;
     private final Renderer renderer;
-    private StaticShader shader;
+    private final StaticShader shader;
 
     private float targetFPS = 1000;
     private boolean running;
 
     public Engine(
-            Display window,
             Loader loader,
-            Renderer renderer
+            Renderer renderer,
+            StaticShader shader
     ) {
-        this.window = window;
+        this.window = Display.getInstance();
         this.loader = loader;
         this.renderer = renderer;
+        this.shader = shader;
     }
 
     public void start() {
@@ -66,8 +67,7 @@ public class Engine {
     }
 
     private void initialize() {
-        window.create();
-        shader = new StaticShader();
+
     }
 
     private void stop() {
