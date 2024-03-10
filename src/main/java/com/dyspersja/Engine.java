@@ -47,7 +47,18 @@ public class Engine {
                 0,1,3,
                 3,1,2
         };
-        Model testModel = loader.loadModel(vertices, indices);
+
+        float[] textureCoordinates = {
+                0,0,
+                0,1,
+                1,1,
+                1,0
+        };
+
+        Model testModel = loader.loadModel(vertices, textureCoordinates, indices);
+        ModelTexture texture = loader.loadTexture("src/main/resources/textures/texture.png");
+        TexturedModel texturedModel = new TexturedModel(testModel, texture);
+
 
         while (running) {
             boolean render = false;
@@ -62,7 +73,7 @@ public class Engine {
                 if (window.shouldClose()) stop();
             }
 
-            if (render) render(testModel);
+            if (render) render(texturedModel);
         }
     }
 
@@ -75,10 +86,10 @@ public class Engine {
         running = false;
     }
 
-    private void render(Model testModel) {
+    private void render(TexturedModel model) {
         renderer.clear();
         shader.start();
-        renderer.render(testModel);
+        renderer.render(model);
         shader.stop();
         window.update();
     }
